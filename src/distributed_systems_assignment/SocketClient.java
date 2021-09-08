@@ -10,17 +10,29 @@ public class SocketClient {
             DataInputStream din = new DataInputStream(s.getInputStream());
             DataOutputStream dout = new DataOutputStream(s.getOutputStream());
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            String str = "", str2 = "", str_out = "";
-            while (!str.equals("stop")) {
+            String out = "", str_in = "", str_out = "";
+            while (!out.equals("exit")) {
 
-                str2 = din.readUTF();
-                if (str2.matches("requesting : student_number,student_name,student_faculty,personal_code")) {
-                    str_out = "student_number:107057,student_name: Nicodemus Opon,student_faculty: FIT,personal_code:D5t6hb70Y";
+                str_in = din.readUTF();
+                if (str_in.matches("requesting : student_number,student_name,student_faculty,personal_code")) {
+                    System.out.println("Server >>" + str_in);
+                    System.out.println("Enter details separated by commas i.e \n 107057,Nicodemus Opon,SCES");
+                    System.out.print(":>");
+                    out = br.readLine();
+                    String[] details = {"student_number", "student_name", "student_faculty", "personal_code"};
+                    String[] split_out = out.split(",");
+                    // accessing each element of array
+                    for (int i = 0; i < split_out.length; i++) {
+                        str_out += details[i] + " - "+split_out[i]+"\n";
+                        
+                    }
+
+                    System.out.println("sent to server");
                     dout.writeUTF(str_out);
                     dout.flush();
                 }
-                System.out.println("Server >>" + str2);
-                str = br.readLine();
+
+                out = br.readLine();
             }
             dout.close();
         }
