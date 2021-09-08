@@ -16,7 +16,7 @@ public class SocketClient {
                 str_in = din.readUTF();
                 if (str_in.matches("requesting : student_number,student_name,student_faculty,personal_code")) {
                     System.out.println("Server >>" + str_in);
-                    System.out.println("Enter details separated by commas i.e \n 107057,Nicodemus Opon,SCES");
+                    System.out.println("Enter details separated by commas i.e \n 107057,Nicodemus Opon,SCES,Personal_Code");
                     System.out.print(":>");
                     out = br.readLine();
                     String[] details = {"student_number", "student_name", "student_faculty", "personal_code"};
